@@ -7,6 +7,8 @@ const dotenv = require('dotenv');
 // create router
 const authRoute = require('./routes/auth');
 const userRoute = require('./routes/users');
+const movieRoute = require('./routes/movies');
+const listRoute = require('./routes/lists');
 
 dotenv.config();
 main().catch(err => console.log(err));
@@ -18,6 +20,8 @@ async function main() {
 app.use(express.json());
 app.use('/backend/auth', authRoute);
 app.use('/backend/users', userRoute);
+app.use('/backend/movies', movieRoute);
+app.use('/backend/lists', listRoute);
 
 app.listen((8800), () => {
   console.log("backend server is up");
