@@ -6,14 +6,22 @@ import {
   BrowserRouter,
   Routes, // instead of "Switch"
   Route,
+  Navigate,
 } from "react-router-dom";
+import { useContext } from 'react';
+import { AuthContext } from './context/authContext/AuthContext';
 
 const App = () => {
+  const {user} = useContext(AuthContext);
+
   return (
     <BrowserRouter>
       <Routes>
+        <Route path='/' element={<Navigate to='/login' />} />
+        <Route path='*' element={<Navigate to='/register' />} />
+        <Route path='/login' element={user ? <Navigate to='/browse' /> : <Login />}>
+        </Route>
         <Route path='/browse' element={<Browse />} />
-        <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
       </Routes>
     </BrowserRouter>

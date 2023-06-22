@@ -1,13 +1,35 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import Input from "../components/Input";
+import axios from "axios";
+import { loginStart, loginSuccess, loginFailure } from "../context/authContext/AuthAction";
+import { AuthContext } from "../context/authContext/AuthContext";
+
 
 const Login = () => {
-  const[username, setUsername] = useState('');
-  const[email, setEmail] = useState('');
-  const[password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const {isFetching, dispatch} = useContext(AuthContext)
   
   const handleLogin = (e) => {
+    const user = {
+      email: email,
+      password: password
+    };
+
+    const login = async (dispatch) => {
+      dispatch(loginStart);
+      try {
+        const request = await axios.post('auth/login', user);
+        console.log(request.data);
+        dispatch(loginSuccess(request.data));
+      } catch (err) {
+        dispatch(loginFailure);
+      }
+    }
+    
     e.preventDefault();
+    login(dispatch);
   }
 
   return (
@@ -21,20 +43,11 @@ const Login = () => {
           <img src='/images/logo.png' alt='logo' className="h-12"/>
         </nav>
         <div className="flex justify-center">
-          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
-            <h2 className="text-white text-4xl mb-8 font-semibold">
+          <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full min-h-[650px]">
+            <h2 className="text-white text-3xl mb-8 font-semibold">
               Sign in
             </h2>
             <div className="flex flex-col gap-4">
-              <Input 
-                id='username'
-                value={username}
-                label='Username'
-                type='text'
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
               <Input 
                 id='email'
                 value={email}
@@ -65,6 +78,7 @@ const Login = () => {
               hover:bg-red-700 
               transition'
               onClick={handleLogin}
+              disabled={isFetching}
             >
               Sign in
             </button>

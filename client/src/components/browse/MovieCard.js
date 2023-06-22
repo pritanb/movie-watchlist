@@ -1,14 +1,55 @@
-import React from 'react'
-import {BsChevronDown, BsPlus} from 'react-icons/bs'
+import { useState, useEffect } from 'react'
+import axios from '../../requests/axios'
+import {BsChevronDown, BsPlus, BsDot} from 'react-icons/bs'
 
-const base_url = "https://image.tmdb.org/t/p/original"
+const image_url = "https://image.tmdb.org/t/p/original"
 
 const MovieCard = (movie) => {
-  console.log(movie)
+  const[details, setDetails] = useState({
+    id: "",
+    title: "",
+    overview: "",
+    backdrop_path: "",
+    genres: [],
+    release_date: "",
+    runtime: "", 
+    languages: [],
+    rating: "",
+  });
+
+  const id = movie.id
+  
+  useEffect (() => {
+    const fetchData = async () => {
+      try {
+        const request = await axios.get(`/movie/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`)
+        const data = request.data
+        const res = {
+          id: data.id,
+          title: data.original_title,
+          overview: data.overview,
+          backdrop_path: data.backdrop_path,
+          genres: data.genres, 
+          release_date: data.release_date,
+          runtime: data.runtime, 
+          languages: data.spoken_languages,
+          rating: data.vote_average
+        }
+        setDetails(res)
+        return request
+      } catch (err) {
+        console.error(err.message)
+      }
+    }
+    fetchData();
+  }, [id])
+
+  console.table(details )
+
   return (
-    <div className='group bg-zinc-900 col-span relative h-[12vw]'>
+    <div className='group bg-zinc-900 col-span relative min-h-[12vw]'>
       <img 
-        src={`${base_url}${movie.backdrop_path}`} 
+        src={`${image_url}${movie.backdrop_path}`} 
         alt={movie.title}
         className='
           cursor-pointer
@@ -43,7 +84,7 @@ const MovieCard = (movie) => {
         '
       >
         <img 
-          src={`${base_url}${movie.backdrop_path}`} 
+          src={`${image_url}${movie.backdrop_path}`} 
           alt={movie.title}
           className='
             cursor-pointer
@@ -61,18 +102,30 @@ const MovieCard = (movie) => {
             z-10
             bg-zinc-800
             p-2
-            lg:p-4
+            lg:p-2
             absolute
             w-full
             transition
             shadow-md
             rounded-b-md
+            flex flex-wrap
           '
         >
-          <p className='text-white font-semibold text-[12px] float-left w-2/3 align-middle'>
+          <p className='text-white font-bold drop-shadow-lg pr-2 align-middle w-full justify-start'>
               {movie.title}
           </p>
-          <div className='flex flex-row float-right gap-2'>
+          <div className='flex flex-row items-center w-full'>
+            
+              {details.genres.slice(0, 3).map((genre) => (
+                <p className='text-white font-semibold text-xs flex flex-row'>
+                  {genre.name} <span><BsDot size={18} color='grey'/></span> 
+                </p>
+              ))}
+          </div>
+          <p className='text-white text-xs w-full'>
+            {details.runtime} minutes
+          </p>
+          <div className='flex flex-row justify-end gap-2 mt-4'>
             <div 
               className='
                 cursor-pointer
@@ -118,7 +171,9 @@ const MovieCard = (movie) => {
               <BsPlus size={16} />
             </div>
           </div>
+
         </div>
+        
       </div>
     </div>
   )
