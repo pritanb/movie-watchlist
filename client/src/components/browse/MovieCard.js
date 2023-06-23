@@ -1,56 +1,50 @@
 import { useState, useEffect } from 'react'
 import axios from '../../requests/axios'
 import {BsChevronDown, BsPlus, BsDot} from 'react-icons/bs'
+import {BiMovie, BiVideoPlus} from 'react-icons/bi'
 
 const image_url = "https://image.tmdb.org/t/p/original"
 
 const MovieCard = (movie) => {
-  const[details, setDetails] = useState({
-    id: "",
-    title: "",
-    overview: "",
-    backdrop_path: "",
-    genres: [],
-    release_date: "",
-    runtime: "", 
-    languages: [],
-    rating: "",
-  });
+  const[isMovie, setisMovie] = useState(false)
+  const[details, setDetails] = useState({});
 
   const id = movie.id
+  const media_type = movie.media_type
   
   useEffect (() => {
     const fetchData = async () => {
+      let url = ``
+      if (media_type === 'movie') {
+        url = `/movie/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`
+        setisMovie(true)
+      } else if (media_type === 'tv') {
+        url = `/tv/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`
+      };
+
       try {
-        const request = await axios.get(`/movie/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`)
-        const data = request.data
-        const res = {
-          id: data.id,
-          title: data.original_title,
-          overview: data.overview,
-          backdrop_path: data.backdrop_path,
-          genres: data.genres, 
-          release_date: data.release_date,
-          runtime: data.runtime, 
-          languages: data.spoken_languages,
-          rating: data.vote_average
-        }
-        setDetails(res)
+        const request = await axios.get(url)
+        console.log(request.data)
+        setDetails(request.data)
         return request
       } catch (err) {
         console.error(err.message)
       }
     }
     fetchData();
-  }, [id])
+  }, [id, media_type])
 
-  console.table(details )
+  console.log(details)
+
+  const matchPercentage = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   return (
     <div className='group bg-zinc-900 col-span relative min-h-[12vw]'>
       <img 
-        src={`${image_url}${movie.backdrop_path}`} 
-        alt={movie.title}
+        src={`${image_url}${details.backdrop_path}`} 
+        alt={details.title ? details.title : details.name}
         className='
           cursor-pointer
           object-cover
@@ -78,14 +72,16 @@ const MovieCard = (movie) => {
           delay-300
           w-full
           scale-0
-          group-hover:scale-150
+          group-hover:scale-[1.4]
+          xl:group-hover:scale-[1.2]
           group-hover:-translate-y-[6vw]
+          group-hover:translate-x-[1vw]
           group-hover:opacity-100
         '
       >
         <img 
-          src={`${image_url}${movie.backdrop_path}`} 
-          alt={movie.title}
+          src={`${image_url}${details.backdrop_path}`} 
+          alt={isMovie ? details.title : details.name}
           className='
             cursor-pointer
             object-cover
@@ -101,8 +97,8 @@ const MovieCard = (movie) => {
           className='
             z-10
             bg-zinc-800
-            p-2
-            lg:p-2
+            p-3
+            lg:p-3
             absolute
             w-full
             transition
@@ -111,21 +107,7 @@ const MovieCard = (movie) => {
             flex flex-wrap
           '
         >
-          <p className='text-white font-bold drop-shadow-lg pr-2 align-middle w-full justify-start'>
-              {movie.title}
-          </p>
-          <div className='flex flex-row items-center w-full'>
-            
-              {details.genres.slice(0, 3).map((genre) => (
-                <p className='text-white font-semibold text-xs flex flex-row'>
-                  {genre.name} <span><BsDot size={18} color='grey'/></span> 
-                </p>
-              ))}
-          </div>
-          <p className='text-white text-xs w-full'>
-            {details.runtime} minutes
-          </p>
-          <div className='flex flex-row justify-end gap-2 mt-4'>
+          <div className='flex flex-row justify-end gap-2'>
             <div 
               className='
                 cursor-pointer
@@ -171,7 +153,28 @@ const MovieCard = (movie) => {
               <BsPlus size={16} />
             </div>
           </div>
-
+          <p className='text-white text-2xl font-bold drop-shadow-lg align-middle w-full justify-start mt-2'>
+            {isMovie ? details.title : details.name}
+          </p>
+          <p className='text-green-400 font-semibold text-xs w-full py-1'>
+            {matchPercentage(90, 100)}% match 
+            {isMovie ? (
+              <span className='text-gray-400 ml-1'> <BiMovie className='inline mr-1' size={16}/> {details.runtime} minutes </span>
+            ) : (details.number_of_seasons === 1) ? (
+              <span className='text-gray-400 ml-1'> <BiVideoPlus className='inline mr-1' size={20}/> {details.number_of_episodes} episodes </span>
+            ) : (
+              <span className='text-gray-400 ml-1'> <BiVideoPlus className='inline mr-1' size={20}/> {details.number_of_seasons} seasons </span>
+            )}
+          </p>
+          <div className='flex flex-row items-center w-full py-1'>
+            {details.genres ? (
+              details.genres.slice(0, 3).map((genre) => (
+                <p className='text-white font-semibold text-xs flex flex-row'>
+                  {genre.name} <span><BsDot size={18} color='grey'/></span> 
+                </p>
+              )
+            )) : ''}
+          </div>
         </div>
         
       </div>
