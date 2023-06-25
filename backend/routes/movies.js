@@ -6,18 +6,15 @@ const verify = require('../verifyToken');
 
 // create
 router.post('/', verify, async (req, res) => {
-  if (req.user.isAdmin) {
-    const newMovie = new Movie(req.body);
+  const newMovie = new Movie(req.body);
 
-    try {
-      const movie = await newMovie.save();
-      res.status(201).json(movie);
-    } catch(err) {
-      res.status(500).json(err);
-    }
-  } else {
-    res.status(403).json("Cannot create movie");
+  try {
+    const movie = await newMovie.save();
+    res.status(201).json(movie);
+  } catch(err) {
+    res.status(500).json(err);
   }
+
 });
 
 // update 
@@ -67,12 +64,12 @@ router.get('/random', verify, async (req, res) => {
   const type = req.query.type;
   let featured;
   try {
-    if (type === "movie") {
+    if (media_type === "movie") {
       featured = await Movie.aggregate([
         {$match: {isMovie: true}},
         {$sample: {size: 1}},
       ]);
-    } else if (type === "series") {
+    } else if (media_type === "tv") {
       featured = await Movie.aggregate([
         {$match: {isMovie: false}},
         {$sample: {size: 1}},

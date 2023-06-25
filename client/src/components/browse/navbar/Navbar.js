@@ -44,7 +44,7 @@ const Navbar = () => {
           ${hideNavbar ? 'bg-zinc-900 bg-opacity-90' : ''}
         `}
       >
-        <img src='/images/logo.png' alt='logo' className="h-3 lg:h-7"></img>
+        <img src='/images/logo.png' alt='logo' className="h-7 lg:h-10"></img>
         <div 
           className='
             flex-row

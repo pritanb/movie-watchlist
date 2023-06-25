@@ -22,7 +22,7 @@ const Login = () => {
       dispatch(loginStart);
       try {
         const request = await axios.post('auth/login', user);
-        console.log(request.data);
+        console.log(request);
         dispatch(loginSuccess(request.data));
       } catch (err) {
         dispatch(loginFailure);

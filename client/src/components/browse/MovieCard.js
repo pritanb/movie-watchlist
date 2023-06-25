@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from '../../requests/axios'
+import axiosDB from 'axios'
 import {BsChevronDown, BsPlus, BsDot} from 'react-icons/bs'
 import {BiMovie, BiVideoPlus} from 'react-icons/bi'
+import { AuthContext } from '../../context/authContext/AuthContext'
 
 const image_url = "https://image.tmdb.org/t/p/original"
 
-const MovieCard = (movie) => {
+const MovieCard = ({movie}) => {
   const[isMovie, setisMovie] = useState(false)
   const[details, setDetails] = useState({});
 
-  const id = movie.id
-  const media_type = movie.media_type
+  const {user} = useContext(AuthContext)
+
+  const {id, media_type} = movie
   
   useEffect (() => {
     const fetchData = async () => {
@@ -20,11 +23,17 @@ const MovieCard = (movie) => {
         setisMovie(true)
       } else if (media_type === 'tv') {
         url = `/tv/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`
+      } else if (media_type === undefined) {
+        if (movie.first_air_date !== undefined) {
+          url = `/tv/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`
+        } else {
+          url = `/movie/${id}?api_key=ba294511bdf2ec831406bdf7d2a8f466`
+          setisMovie(true)
+        }
       };
 
       try {
         const request = await axios.get(url)
-        console.log(request.data)
         setDetails(request.data)
         return request
       } catch (err) {
@@ -32,12 +41,33 @@ const MovieCard = (movie) => {
       }
     }
     fetchData();
-  }, [id, media_type])
-
-  console.log(details)
+  }, [id, media_type, movie.first_air_date])
 
   const matchPercentage = (min, max) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  const addToMyList = (e) => {
+    const add = async () => {
+      try {
+        const movieData = {
+          user: user.username,
+          movie: movie
+        }
+        const request = await axiosDB.post('movies', movieData, {
+          headers: {
+            token: `Bearer ${user.accessTkn}`
+          }
+        });
+        console.log(request.data)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+    
+    add();
+    e.preventDefault();
+    console.log(`Added ${id} to list`);
   }
 
   return (
@@ -148,7 +178,7 @@ const MovieCard = (movie) => {
                 hover:border-2
                 hover:border-white
               '
-              onClick={() => {}}
+              onClick={addToMyList}
             >
               <BsPlus size={16} />
             </div>
@@ -168,8 +198,8 @@ const MovieCard = (movie) => {
           </p>
           <div className='flex flex-row items-center w-full py-1'>
             {details.genres ? (
-              details.genres.slice(0, 3).map((genre) => (
-                <p className='text-white font-semibold text-xs flex flex-row'>
+              details.genres.slice(0, 3).map((genre, index) => (
+                <p key={index} className='text-white font-semibold text-xs flex flex-row'>
                   {genre.name} <span><BsDot size={18} color='grey'/></span> 
                 </p>
               )

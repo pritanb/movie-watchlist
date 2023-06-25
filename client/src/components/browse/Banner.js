@@ -22,13 +22,13 @@ const Banner = () => {
 
     fetchData();
   }, [])
- 
+  
   return (
-    <div className="relative h-[56.25vw]">
+    <div className="relative lg:h-[86vh] h-[56.25vw]">
       <img 
         src={`${image_url}${movie.backdrop_path}`} 
         alt='Featured Movie'
-        className="w-full h-[56.25vw] object-cover brightness-[70%]"
+        className="w-full lg:h-[86vh] h-[56.25vw] object-cover brightness-[70%]"
       />
       <div className="absolute top-[30%] md:top-[40%] ml-4 md:ml-16">
         <p 
@@ -43,7 +43,7 @@ const Banner = () => {
             drop-shadow-xl
           "
         >
-          {movie.title}
+          {movie.title ? movie.title : movie.name}
         </p>
         <p 
           className="
