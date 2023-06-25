@@ -52,7 +52,7 @@ const MovieCard = ({movie}) => {
       try {
         const movieData = {
           user: user.username,
-          movie: movie
+          movie: details
         }
         const request = await axiosDB.post('movies', movieData, {
           headers: {

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import NavbarItem from './NavbarItem'
 import AccountMenu from './AccountMenu';
 import {BsSearch, BsChevronDown} from 'react-icons/bs'
+import { Link } from 'react-router-dom';
 
 const SCROLL_OFFSET = 66;
 
@@ -53,10 +54,19 @@ const Navbar = () => {
             flex
           '
         >
-          <NavbarItem label='Home'/>
-          <NavbarItem label='TV Shows'/>
-          <NavbarItem label='Movies'/>
-          <NavbarItem label='My List'/>
+          <Link to='/browse'>
+            <NavbarItem label='Home'/>
+          </Link>
+          <Link to='/browse/tvshows'>
+            <NavbarItem label='TV Shows'/>
+          </Link>
+          <Link to='/browse/movies'>
+            <NavbarItem label='Movies'/>
+          </Link>
+          <Link to='/browse/mylist'>
+            <NavbarItem label='My List'/>
+          </Link>
+            
         </div>
         <div className="flex flex-row ml-auto gap-7 items-center">
           <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">

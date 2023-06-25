@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from '../../requests/axios'
-import requests from "../../requests/requests";
 
 import {AiOutlineInfoCircle} from 'react-icons/ai'
 
@@ -10,18 +9,18 @@ const randomInteger = (min, max)=> {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-const Banner = () => {
+const Banner = ({fetchURL}) => {
   const [movie, setMovie] = useState([])
 
   useEffect (() => {
     const fetchData = async () => {
-      const request = await axios.get(requests.fetchTrendingToday)
+      const request = await axios.get(fetchURL)
       setMovie(request.data.results[randomInteger(0, request.data.results.length - 1)])
       return request
     }
 
     fetchData();
-  }, [])
+  }, [fetchURL])
   
   return (
     <div className="relative lg:h-[86vh] h-[56.25vw]">
