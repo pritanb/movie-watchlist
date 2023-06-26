@@ -13,7 +13,7 @@ const listRoute = require('./routes/lists');
 
 // Allow requests from the specified frontend domain
 app.use(cors({
-  origin: 'http://192.168.0.12:3000',
+  origin: ['movie-watchlist-igtddijbb-pritanb.vercel.app', 'https://movie-watchlist-pritanb.vercel.app'],
 }));
 
 dotenv.config();
