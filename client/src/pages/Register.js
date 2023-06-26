@@ -2,6 +2,7 @@ import React, {useState, useRef} from "react";
 import RegisterInput from "../components/RegisterInput";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Register = () => {
   const[action, setAction] = useState('');
@@ -87,7 +88,7 @@ const Register = () => {
               Watch anywhere. Cancel at any time.
             </h3>
             <h3 className="text-white text-center text-2xl mb-6">
-              Ready to watch Netflix? Enter your email to create your membership.
+              Ready to watch Sequel? Enter your email to create your membership.
             </h3>
             {!action ? (
               <RegisterInput 
@@ -125,6 +126,7 @@ const Register = () => {
             )}
           </div>
         </div>
+        <Footer />
       </div>
     </div>
   );

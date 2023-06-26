@@ -23,11 +23,12 @@ const App = () => {
         <Route path='/' element={<Navigate to='/login' />} />
         <Route path='*' element={<Navigate to='/register' />} />
         <Route path='/login' element={user ? <Navigate to='/browse' /> : <Login />} />
-        <Route path='/browse' element={user ? <Browse /> : <Navigate to='/login' />} />
-        <Route path='/browse/tvshows' element={<TvShows />} />
-        <Route path='/browse/movies' element={<Movies />} />
-        <Route path='/browse/mylist' element={<MyList />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/browse' element={user ? <Browse /> : <Navigate to='/login' />} />
+        <Route path='/browse/tvshows' element={user ? <TvShows /> : <Navigate to='/login' />} />
+        <Route path='/browse/movies' element={user ? <Movies /> : <Navigate to='/login' />} />
+        <Route path='/browse/mylist' element={user ? <MyList /> : <Navigate to='/login' />} />
+        
       </Routes>
     </BrowserRouter>
   );

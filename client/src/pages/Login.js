@@ -3,15 +3,14 @@ import Input from "../components/Input";
 import axios from "axios";
 import { loginStart, loginSuccess, loginFailure } from "../context/authContext/AuthAction";
 import { AuthContext } from "../context/authContext/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const {isFetching, dispatch} = useContext(AuthContext)
   
-  const navigate = useNavigate();
-
   const handleLogin = (e) => {
     const user = {
       email: email,
@@ -30,10 +29,6 @@ const Login = () => {
     }
     e.preventDefault();
     login(dispatch);
-  }
-
-  const routeRegister = () => {
-    navigate('/register')
   }
 
   return (
@@ -86,14 +81,18 @@ const Login = () => {
             >
               Sign in
             </button>
-            <p className="text-neutral-500 mt-10" onClick={routeRegister}>
-              New to Netfilx?
-              <span className="text-white ml-1 hover:underline cursor-pointer">
-                Sign up now.
-              </span>
+            <p className="text-neutral-500 mt-10">
+              New to Sequel?
+              <Link to='/register'>
+                <span className="text-white ml-2 hover:underline cursor-pointer">
+                  Sign up now.
+                </span>
+              </Link>
+                
             </p>
           </div>
         </div>
+        <Footer></Footer>
       </div>
     </div>
   );
