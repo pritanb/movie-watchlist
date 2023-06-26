@@ -16,7 +16,7 @@ const Movies = () => {
       <List title='Action Movies' fetchURL={requests.fetchActionMovies} />
       <List title='Comedy Movies' fetchURL={requests.fetchComedyMovies} />
       <List title='Horror Movies' fetchURL={requests.fetchHorrorMovies} />
-
+      <List title='Romance Movies' fetchURL={requests.fetchRomanceMovies} />
       <Footer />
     </>
   )

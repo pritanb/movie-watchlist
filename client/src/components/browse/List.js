@@ -8,8 +8,7 @@ const List = ({title, fetchURL}) => {
   useEffect (() => {
     const fetchData = async () => {
       const request = await axios.get(fetchURL)
-      console.log(request.data.results)
-      setMovies(request.data.results)
+      setMovies(request.data.results.filter((result) => result.backdrop_path !== null))
       return request
     }
 

@@ -12,8 +12,10 @@ const Browse = () => {
       <Navbar />
       <Banner fetchURL={requests.fetchTrendingToday} />
       <List title='Trending Now' fetchURL={requests.fetchTrending} />
+      <List title='Netflix Originals' fetchURL={requests.fetchNetflixOriginals} />
       <List title='Top Rated Movies' fetchURL={requests.fetchTopRatedMovies} />
       <List title='Top Rated Tv Shows' fetchURL={requests.fetchTopRatedTvShows} />
+      <List title='Documentaries' fetchURL={requests.fetchDocumentaries} />
       <Footer />
       <Outlet />
     </>

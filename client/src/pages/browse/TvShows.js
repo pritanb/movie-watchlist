@@ -13,6 +13,9 @@ const TvShows = () => {
       <Banner fetchURL={requests.fetchAiringTodayTvShows} />
       <List title='Popular Tv Shows' fetchURL={requests.fetchPopularTvShows} />
       <List title='Top Rated Tv Shows' fetchURL={requests.fetchTopRatedTvShows} />
+      <List title='Action Tv Shows' fetchURL={requests.fetchComedyTvShows} />
+      <List title='Romance Tv Shows' fetchURL={requests.fetchRomanceTvShows} />
+      <List title='Drama Tv Shows' fetchURL={requests.fetchDramaTvShows} />
       <Footer />
     </>
   )

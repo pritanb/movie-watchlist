@@ -7,6 +7,7 @@ const requests = {
 
 	fetchPopularMovies: `/movie/popular?api_key=${API_KEY}&language=en-US`,
 	fetchTopRatedMovies: `/movie/top_rated?api_key=${API_KEY}&language=en-US`,
+	fetchUpcomingMovies: `/movie/upcoming?api_key=${API_KEY}&language=en-US`,
 	fetchActionMovies: `/discover/movie?api_key=${API_KEY}&with_genres=28`,
 	fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&with_genres=35`,
 	fetchHorrorMovies: `/discover/movie?api_key=${API_KEY}&with_genres=27`,
@@ -16,6 +17,9 @@ const requests = {
 	fetchAiringTodayTvShows: `/tv/airing_today?api_key=${API_KEY}&language=en-US`,
 	fetchPopularTvShows: `/tv/popular?api_key=${API_KEY}&language=en-US`,
 	fetchTopRatedTvShows: `/tv/top_rated?api_key=${API_KEY}&language=en-US`,
+	fetchComedyTvShows: `/discover/tv?api_key=${API_KEY}&with_genres=35`,
+	fetchRomanceTvShows: `/discover/tv?api_key=${API_KEY}&with_genres=10749`,
+	fetchDramaTvShows: `/discover/tv?api_key=${API_KEY}&with_genres=18`,
 }
 
 export default requests

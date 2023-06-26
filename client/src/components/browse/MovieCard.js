@@ -209,11 +209,11 @@ const MovieCard = ({movie}) => {
               )
             )) : ''}
             
-            {(details.vote_average > 8) ? (
+            {(details.vote_average >= 8) ? (
               <p className='text-green-400 font-bold text-xs align-middle'>
               {Math.round(details.vote_average * 10) / 10}/10
               </p>
-            ) : (details.vote_average > 5) ? (
+            ) : (details.vote_average >= 5) ? (
               <p className='text-yellow-400 font-bold text-xs align-middle'>
               {Math.round(details.vote_average * 10) / 10}/10
               </p>
