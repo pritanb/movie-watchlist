@@ -34,8 +34,8 @@ const Banner = ({fetchURL}) => {
           className="
             text-white 
             font-bold 
-            text-1xl 
-            md:text-5xl 
+            sm:text-xl 
+            md:text-3xl 
             lg:text-6xl 
             h-full 
             w-[50%] 
@@ -47,7 +47,9 @@ const Banner = ({fetchURL}) => {
         <p 
           className="
             text-white
-            md-text-lg
+            text-xs
+            sm:text-base
+            lg:text-lg
             mt-3
             md:mt-8
             w-[90%]
@@ -58,7 +60,7 @@ const Banner = ({fetchURL}) => {
         >
           {movie.overview}
         </p>
-        <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
+        <div className="flex flex-row items-center mt-3 md:mt-4 gap-3 invisible sm:visible">
           <button 
             className="
               bg-white 
@@ -76,7 +78,7 @@ const Banner = ({fetchURL}) => {
               transition
             "
           >
-          <AiOutlineInfoCircle size={24} className="mr-2"/>
+            <AiOutlineInfoCircle size={24} className="mr-2"/>
             More info
           </button>
         </div>
