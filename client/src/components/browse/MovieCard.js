@@ -186,6 +186,9 @@ const MovieCard = ({movie}) => {
           <p className='text-white text-2xl font-bold drop-shadow-lg align-middle w-full justify-start mt-2'>
             {isMovie ? details.title : details.name}
           </p>
+          <p className='text-gray-400 text-xs font-semibold'>
+            {isMovie ? details.release_date.split('-')[0] : details.first_air_date.split('-')[0]}
+          </p>
           <p className='text-green-400 font-semibold text-xs w-full py-1'>
             {matchPercentage(90, 100)}% match 
             {isMovie ? (
@@ -196,7 +199,7 @@ const MovieCard = ({movie}) => {
               <span className='text-gray-400 ml-1'> <BiVideoPlus className='inline mr-1' size={20}/> {details.number_of_seasons} seasons </span>
             )}
           </p>
-          <div className='flex flex-row items-center w-full py-1'>
+          <div className='flex flex-row items-center flex-wrap w-full py-1'>
             {details.genres ? (
               details.genres.slice(0, 3).map((genre, index) => (
                 <p key={index} className='text-white font-semibold text-xs flex flex-row'>
@@ -204,7 +207,24 @@ const MovieCard = ({movie}) => {
                 </p>
               )
             )) : ''}
+            
+            {(details.vote_average > 8) ? (
+              <p className='text-green-400 font-bold text-xs align-middle'>
+              {Math.round(details.vote_average * 10) / 10}/10
+              </p>
+            ) : (details.vote_average > 5) ? (
+              <p className='text-yellow-400 font-bold text-xs align-middle'>
+              {Math.round(details.vote_average * 10) / 10}/10
+              </p>
+            ) : (
+              <p className='text-red-600 font-bold text-xs align-middle'>
+              {Math.round(details.vote_average * 10) / 10}/10
+              </p>
+            )}
           </div>
+          <p className='text-slate-200 text-xs align-middle'>
+            {details.overview}
+          </p>
         </div>
         
       </div>
