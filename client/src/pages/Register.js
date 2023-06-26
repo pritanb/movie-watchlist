@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const Register = () => {
   const[action, setAction] = useState('');
   const[email, setEmail] = useState('');
@@ -36,7 +38,7 @@ const Register = () => {
 
     const register = async () => {
       try {
-        const request = await axios.post('auth/register', user);
+        const request = await axios.post(`${backendUrl}/auth/register`, user);
         console.log(request.data);
         navigate('/login')
       } catch (err) {

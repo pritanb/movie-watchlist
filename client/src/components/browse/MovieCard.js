@@ -5,6 +5,7 @@ import {BsChevronDown, BsPlus, BsDot} from 'react-icons/bs'
 import {BiMovie, BiVideoPlus} from 'react-icons/bi'
 import { AuthContext } from '../../context/authContext/AuthContext'
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 const image_url = "https://image.tmdb.org/t/p/original"
 
 const MovieCard = ({movie}) => {
@@ -54,7 +55,7 @@ const MovieCard = ({movie}) => {
           user: user.username,
           movie: details
         }
-        const request = await axiosDB.post('movies', movieData, {
+        const request = await axiosDB.post(`${backendUrl}/movies`, movieData, {
           headers: {
             token: `Bearer ${user.accessTkn}`
           }
@@ -186,9 +187,9 @@ const MovieCard = ({movie}) => {
           <p className='text-white text-2xl font-bold drop-shadow-lg align-middle w-full justify-start mt-2'>
             {isMovie ? details.title : details.name}
           </p>
-          <p className='text-gray-400 text-xs font-semibold'>
+          {details.release_date || details.first_air_date ? (<p className='text-gray-400 text-xs font-semibold'>
             {isMovie ? details.release_date.split('-')[0] : details.first_air_date.split('-')[0]}
-          </p>
+          </p>) : null}
           <p className='text-green-400 font-semibold text-xs w-full py-1'>
             {matchPercentage(90, 100)}% match 
             {isMovie ? (

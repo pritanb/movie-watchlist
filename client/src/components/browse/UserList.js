@@ -3,6 +3,8 @@ import axios from 'axios'
 import MovieCard from "./MovieCard";
 import { AuthContext } from "../../context/authContext/AuthContext";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const UserList = () => {
   const [movies, setMovies] = useState([])
 
@@ -10,7 +12,7 @@ const UserList = () => {
 
   useEffect (() => {
     const fetchData = async () => {
-      const request = await axios.get('/movies', {
+      const request = await axios.get(`${backendUrl}/movies`, {
         headers: {
           token: `Bearer ${user.accessTkn}`
         }

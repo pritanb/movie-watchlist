@@ -1,9 +1,11 @@
 import axios from "axios"
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const addToMyList = (e) => {
   const updateMyList = async () => {
     try {
-      const request = await axios.post('movies/', {user, movie});
+      const request = await axios.post(`${backendUrl}movies/`, {user, movie});
       console.log(request.data);
     } catch (err) {
       console.log(err)

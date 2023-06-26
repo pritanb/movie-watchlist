@@ -6,6 +6,8 @@ import { AuthContext } from "../context/authContext/AuthContext";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -20,7 +22,7 @@ const Login = () => {
     const login = async (dispatch) => {
       dispatch(loginStart);
       try {
-        const request = await axios.post('auth/login', user);
+        const request = await axios.post(`${backendUrl}/auth/login`, user);
         console.log(request);
         dispatch(loginSuccess(request.data));
       } catch (err) {
