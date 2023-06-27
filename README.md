@@ -1,5 +1,5 @@
 # movie-watchlist
-A Netflix-based movie watchlist app built on MERN
+A Netflix-based movie watchlist app built with MERN
 
 ## Demo
 https://movie-watchlist-pritanb.vercel.app
@@ -11,11 +11,6 @@ A responsive web application mimicking the functionality of Netflix. It allows u
 - Show Catalog: Users can browse through a vast collection of movies and TV shows. Information including the title, poster image, release date, genres, rating and description are displayed for each entry.
 - Watchlist Creation: Users can create their own watchlists by adding movies and TV shows they wish to watch later. The watchlist is stored in the database and can be managed by the user.
 - Responsive Design: The web app is responsive and optimized for desktop, tablet, and mobile devices
-  
-### Preview
-https://github.com/pritanb/to-do-list/assets/67801415/095c8024-7f92-4a93-8cfd-b1f0e204d47c
-https://github.com/pritanb/to-do-list/assets/67801415/f0506e59-69ff-45db-ad5b-d5188b03aa64
-https://github.com/pritanb/to-do-list/assets/67801415/ce709582-c1ba-4993-8ebd-e16d8e37ac41
 
 ## Framework
 - MongoDB
@@ -31,4 +26,9 @@ https://github.com/pritanb/to-do-list/assets/67801415/ce709582-c1ba-4993-8ebd-e1
 - Context API
 - React Router 
 - Tailwind CSS
+  
+## Preview
+![Screenshot 2023-06-27 154759](https://github.com/pritanb/movie-watchlist/assets/67801415/f93b5d57-43e1-416c-8339-bc21b6c8046a)
+![Screenshot 2023-06-27 155026](https://github.com/pritanb/movie-watchlist/assets/67801415/3690b24d-378d-4ada-9cae-b8370af56ca5)
+![Screenshot 2023-06-27 155055](https://github.com/pritanb/movie-watchlist/assets/67801415/5b9b64db-7e80-49ca-b929-586611c2af95)
 
